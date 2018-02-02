@@ -24,7 +24,7 @@ before_install:
 install: 
   - npm install  
 before_script:  
-  - nohup ./tools/runTestRpc.sh </dev/null >/dev/null 2>&1 &
+  - sh tools/runTestRpc.sh
 script:  
   - truffle test
 after_script:
