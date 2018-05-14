@@ -51,7 +51,7 @@ contract Workers is OpsManaged {
 
     /// @dev    Constructor;
     ///         public method;    
-    function Workers()
+    constructor()
         public
         OpsManaged()
     {
@@ -74,9 +74,9 @@ contract Workers is OpsManaged {
         require(_deactivationHeight >= block.number);
 
         workers[_worker] = _deactivationHeight;
-        uint256 remainingHeight = _deactivationHeight - block.number;
+        uint256 remainingHeight = _deactivationHeight.sub(block.number);
         //Event for worker set
-        WorkerSet(_worker, _deactivationHeight, remainingHeight);
+        emit WorkerSet(_worker, _deactivationHeight, remainingHeight);
 
         return (remainingHeight);
     }
@@ -96,7 +96,7 @@ contract Workers is OpsManaged {
 
         delete workers[_worker];
         //Event for worker removed
-        WorkerRemoved(_worker, existed);
+        emit WorkerRemoved(_worker, existed);
 
         return existed;
     }
