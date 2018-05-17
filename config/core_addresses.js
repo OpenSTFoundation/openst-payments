@@ -50,6 +50,10 @@ const allAddresses = {
     airdrop: {
       abi: coreAbis.airdrop,
       bin: coreBins.airdrop
+    },
+    storage: {
+      abi: coreAbis.storage,
+      bin: coreBins.storage
     }
   }
 };
