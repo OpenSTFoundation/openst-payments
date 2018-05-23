@@ -21,7 +21,8 @@ const coreBins = {
   opsManaged: readFile(rootPrefix + '/contracts/bin/OpsManaged.bin', "utf8"),
   workers: readFile(rootPrefix + '/contracts/bin/Workers.bin', "utf8"),
   brandedToken: readFile(rootPrefix + '/contracts/bin/EIP20Token.bin', "utf8"),
-  airdrop: readFile(rootPrefix + '/contracts/bin/Airdrop.bin', "utf8")
+  airdrop: readFile(rootPrefix + '/contracts/bin/Airdrop.bin', "utf8"),
+  proof: readFile(rootPrefix + '/contracts/bin/Proof.bin', "utf8")
 };
 
 module.exports = coreBins;

@@ -10,6 +10,7 @@ const rootPrefix = ".."
 
   , deployWorkers = require(rootPrefix + '/services/deploy/workers')
   , deployAirdrop = require(rootPrefix + '/services/deploy/airdrop')
+  , deployProof = require(rootPrefix + '/services/deploy/proof')
 
   , register = require(rootPrefix + '/services/airdrop_management/register')
   , setAcceptedMargin = require(rootPrefix + '/services/airdrop_management/set_accepted_margin')
@@ -44,7 +45,8 @@ ServiceManifestKlass.prototype = {
    */
   deploy: {
     workers: deployWorkers,
-    airdrop: deployAirdrop
+    airdrop: deployAirdrop,
+    proof: deployProof
   },
 
   /**

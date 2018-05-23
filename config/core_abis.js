@@ -22,7 +22,8 @@ const coreAbis = {
   opsManaged: parseFile(rootPrefix + '/contracts/abi/OpsManaged.abi', "utf8"),
   workers: parseFile(rootPrefix + '/contracts/abi/Workers.abi', "utf8"),
   brandedToken: parseFile(rootPrefix + '/contracts/abi/EIP20Token.abi', "utf8"),
-  airdrop: parseFile(rootPrefix + '/contracts/abi/Airdrop.abi', "utf8")
+  airdrop: parseFile(rootPrefix + '/contracts/abi/Airdrop.abi', "utf8"),
+  proof: parseFile(rootPrefix + '/contracts/abi/Proof.abi', "utf8")
 };
 
 module.exports = coreAbis;

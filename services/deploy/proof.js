@@ -1,0 +1,133 @@
+"use strict";
+
+/**
+ *
+ * This class would be used for deploying airdrop contract.<br><br>
+ *
+ * @module services/deploy/airdrop
+ *
+ */
+
+const rootPrefix = '../..'
+  , responseHelper = require(rootPrefix + '/lib/formatter/response')
+  , basicHelper = require(rootPrefix + '/helpers/basic_helper')
+  , logger = require(rootPrefix + '/helpers/custom_console_logger')
+  , DeployerKlass = require(rootPrefix + '/services/deploy/deployer')
+  , web3Provider = require(rootPrefix + '/lib/web3/providers/rpc')
+  , gasLimitGlobalConstant = require(rootPrefix + '/lib/global_constant/gas_limit')
+  , paramErrorConfig = require(rootPrefix + '/config/param_error_config')
+  , apiErrorConfig = require(rootPrefix + '/config/api_error_config')
+;
+
+const errorConfig = {
+  param_error_config: paramErrorConfig,
+  api_error_config: apiErrorConfig
+};
+
+const DeployProofKlass = function (params) {
+  const oThis = this;
+  params = params || {};
+  logger.debug("=======DeployProofKlass.params=======");
+  logger.debug(params);
+
+  oThis.contractName = 'proof';
+  oThis.gasPrice = params.gas_price;
+  oThis.options = params.options;
+
+  oThis.constructorArgs = [];
+};
+
+DeployProofKlass.prototype = {
+
+  /**
+   * Perform method
+   *
+   * @return {promise<result>}
+   *
+   */
+  perform: async function () {
+    const oThis = this
+    ;
+    try {
+      var r = null;
+
+      r = await oThis.validateParams();
+      logger.debug("=======DeployProofKlass.validateParams.result=======");
+      logger.debug(r);
+      if (r.isFailure()) return r;
+
+      r = await oThis.deploy();
+      logger.debug("=======DeployProofKlass.setOps.result=======");
+      logger.debug(r);
+
+      return r;
+
+    } catch (err) {
+      let errorParams = {
+        internal_error_identifier: 's_d_a_perform_1',
+        api_error_identifier: 'unhandled_api_error',
+        error_config: errorConfig,
+        debug_options: { err: err }
+      };
+      return responseHelper.error(errorParams);
+    }
+
+  },
+
+  /**
+   * Validation of params
+   *
+   * @return {result}
+   *
+   */
+  validateParams: function () {
+    const oThis = this
+    ;
+
+    if (!oThis.gasPrice) {
+      let errorParams = {
+        internal_error_identifier: 's_d_a_validateParams_1',
+        api_error_identifier: 'invalid_api_params',
+        error_config: errorConfig,
+        params_error_identifiers: ['gas_price_invalid'],
+        debug_options: {}
+      };
+      return responseHelper.paramValidationError(errorParams);
+    }
+
+    if (!oThis.options) {
+      let errorParams = {
+        internal_error_identifier: 's_d_a_validateParams_2',
+        api_error_identifier: 'invalid_api_params',
+        error_config: errorConfig,
+        params_error_identifiers: ['invalid_options'],
+        debug_options: {}
+      };
+      return responseHelper.paramValidationError(errorParams);
+    }
+    return responseHelper.successWithData({});
+  },
+
+  /**
+   * deploy
+   *
+   * @return {promise<result>}
+   *
+   */
+  deploy: function () {
+    const oThis = this
+    ;
+    oThis.constructorArgs = [];
+    const DeployerObject = new DeployerKlass({
+      contract_name: oThis.contractName,
+      constructor_args: oThis.constructorArgs,
+      gas_price: oThis.gasPrice,
+      gas_limit: gasLimitGlobalConstant.deployAirdrop(),
+      options: oThis.options
+    });
+    return DeployerObject.perform();
+  }
+
+};
+
+module.exports = DeployProofKlass;

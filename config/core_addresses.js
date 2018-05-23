@@ -23,7 +23,7 @@ const allAddresses = {
     ops: {
       address: process.env.OST_UTILITY_OPS_ADDR,
       passphrase: process.env.OST_UTILITY_OPS_PASSPHRASE
-    }
+    },
   },
 
   contracts: {
@@ -50,6 +50,10 @@ const allAddresses = {
     airdrop: {
       abi: coreAbis.airdrop,
       bin: coreBins.airdrop
+    },
+    proof: {
+      abi: coreAbis.proof,
+      bin: coreBins.proof
     }
   }
 };
