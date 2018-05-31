@@ -13,6 +13,6 @@ contract Storage {
     constructor() public {
         pos0 = '1234';
         pos1[sih1] = '5678';
-        pos1[sih2] = '5680';
+        pos1[sih2] = '5680803456';
     }
 }
