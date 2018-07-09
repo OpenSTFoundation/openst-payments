@@ -6,7 +6,8 @@ branches:
   - master
   - develop
   - release-1.0
-  - pre-release-v1.0.8
+  - pre-release-v1.0.9
+  - santhosh/block_scanner_optimisations
 notifications:
   email:
     recipients:
@@ -28,6 +29,9 @@ matrix:
     - if: branch =~ ^master
       env: GETH_VERSION=1.8.8
       node_js: "8"
+    - if: branch =~ ^master
+      env: GETH_VERSION=1.8.12
+      node_js: "8"
     - if: branch =~ ^develop
       env: GETH_VERSION=1.7.2
       node_js: "8"
@@ -36,6 +40,9 @@ matrix:
       node_js: "8"
     - if: branch =~ ^develop
       env: GETH_VERSION=1.8.8
+      node_js: "8"
+    - if: branch =~ ^develop
+      env: GETH_VERSION=1.8.12
       node_js: "8"
     - if: branch =~ ^master
       env: GETH_VERSION=1.7.2
@@ -46,6 +53,9 @@ matrix:
     - if: branch =~ ^master
       env: GETH_VERSION=1.8.8
       node_js: "9"
+    - if: branch =~ ^master
+      env: GETH_VERSION=1.8.12
+      node_js: "9"
     - if: branch =~ ^develop
       env: GETH_VERSION=1.7.2
       node_js: "9"
@@ -54,6 +64,9 @@ matrix:
       node_js: "9"
     - if: branch =~ ^develop
       env: GETH_VERSION=1.8.8
+      node_js: "9"
+    - if: branch =~ ^develop
+      env: GETH_VERSION=1.8.12
       node_js: "9"
 
 services:
