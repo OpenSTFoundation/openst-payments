@@ -347,7 +347,7 @@ contract MultiSigWallet {
             performConfirmTransaction(transactionId_);
             if(isTransactionExecuted(transactionId_)) {
                 // Old requirements i.e. number of required confirmations for
-                // an transaction to be executed is being changed. */
+                // an transaction to be executed is being changed.
                 required = _required;
                 emit RequirementChange(_required);
             }
