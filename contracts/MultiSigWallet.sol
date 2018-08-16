@@ -522,7 +522,7 @@ contract MultiSigWallet {
     }
 
     /**
-     * @notice It check whether transaction is available for execution.
+     * @notice It checks whether transaction is available for execution.
      *
      * @param _transactionId  For which transaction execution status is
      *        required.
