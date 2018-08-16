@@ -56,7 +56,10 @@ contract Internal {
      * @dev Checks if msg.sender is organization address or not.
      */
     modifier onlyOrganization() {
-        require(organization == msg.sender);
+        require(
+            organization == msg.sender,
+            "msg.sender should be organization."
+        );
         _;
     }
 
@@ -83,7 +86,7 @@ contract Internal {
      * @param _internalActors Array of addresses of the internal actor which
      *         needs to be registered.
      *
-     * @return uint256 total count of registered actors.
+     * @return total count of registered actors.
      */
     function registerInternalActor(
         address[] _internalActors
@@ -94,8 +97,10 @@ contract Internal {
     {
         require(_internalActors.length != 0, "Internal actors length is 0");
 
-        require(_internalActors.length <= MAX_INTERNAL_ACTORS,
-            "Internal actors max length exceeded!!!");
+        require(
+            _internalActors.length <= MAX_INTERNAL_ACTORS,
+            "Internal actors max length exceeded!!!"
+        );
 
         for (uint16 i=0; i<_internalActors.length; i++) {
             // address 0 transfer is allowed in EIP20.
