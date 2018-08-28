@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "\n********* Preparing price oracle deployment *************"
-npm install @ostdotcom/ost-price-oracle@1.0.5-beta.4 --save-dev
+npm install @ostdotcom/ost-price-oracle@1.0.5-beta.5 --save-dev
 cd ../../node_modules/@ostdotcom/ost-price-oracle/
 echo "\n********* Done *************"
 
