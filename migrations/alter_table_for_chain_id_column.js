@@ -8,19 +8,19 @@
  * @module migrations/alter_table_for_chain_id_column.js
  */
 
+const rootPrefix = '..',
+  InstanceComposer = require(rootPrefix + '/instance_composer'),
+  logger = require(rootPrefix + '/helpers/custom_console_logger');
+
+require(rootPrefix + '/app/models/queryDb');
+
 if (!process.argv[2]) {
   logger.error('Please pass the config strategy.');
   process.exit(1);
 }
 
-const rootPrefix = '..',
-  InstanceComposer = require(rootPrefix + '/instance_composer'),
-  configStrategy = require(process.argv[2]),
-  logger = require(rootPrefix + '/helpers/custom_console_logger');
-
-require(rootPrefix + '/app/models/queryDb');
-
-const instanceComposer = new InstanceComposer(configStrategy),
+const configStrategy = require(process.argv[2]),
+  instanceComposer = new InstanceComposer(configStrategy),
   coreConstants = instanceComposer.getCoreConstants(),
   QueryDBKlass = instanceComposer.getQueryDBKlass(),
   QueryDB = new QueryDBKlass(coreConstants.MYSQL_DATABASE);
@@ -50,7 +50,6 @@ const alterTables = {
   },
 
   getQueries: function() {
-
     let chainId = configStrategy.OST_UTILITY_CHAIN_ID;
 
     const alterAirdropAllocationProofDetailsTable =
@@ -91,7 +90,6 @@ const alterTables = {
     logger.info('usage:', 'node ./migrations/alter_table_for_chain_id_column.js defaultChainId');
     logger.info('* provided chain id will be used as a default value for all the existing rows.');
   }
-
 };
 
 module.exports = alterTables;
