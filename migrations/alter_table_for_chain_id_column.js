@@ -3,19 +3,24 @@
 /**
  * This is Script is used to add chainId column in tables "airdrop_allocation_proof_details" and "airdrops"<br><br>
  *
- * Usage : node ./migrations/alter_table_for_chain_id_column.js defaultChainId
+ * Usage : node ./migrations/alter_table_for_chain_id_column.js config_strategy_path
  *
  * @module migrations/alter_table_for_chain_id_column.js
  */
 
 const rootPrefix = '..',
   InstanceComposer = require(rootPrefix + '/instance_composer'),
-  configStrategy = require(rootPrefix + '/mocha_test/scripts/config_strategy'),
   logger = require(rootPrefix + '/helpers/custom_console_logger');
 
 require(rootPrefix + '/app/models/queryDb');
 
-const instanceComposer = new InstanceComposer(configStrategy),
+if (!process.argv[2]) {
+  logger.error('Please pass the config strategy.');
+  process.exit(1);
+}
+
+const configStrategy = require(process.argv[2]),
+  instanceComposer = new InstanceComposer(configStrategy),
   coreConstants = instanceComposer.getCoreConstants(),
   QueryDBKlass = instanceComposer.getQueryDBKlass(),
   QueryDB = new QueryDBKlass(coreConstants.MYSQL_DATABASE);
@@ -45,15 +50,7 @@ const alterTables = {
   },
 
   getQueries: function() {
-
-    const args = process.argv;
-
-    let chainId = args[2];
-
-    if (!chainId) {
-      logger.info('Using chain id from config strategy.', configStrategy.OST_UTILITY_CHAIN_ID);
-      chainId = configStrategy.OST_UTILITY_CHAIN_ID;
-    }
+    let chainId = configStrategy.OST_UTILITY_CHAIN_ID;
 
     const alterAirdropAllocationProofDetailsTable =
       'ALTER TABLE `airdrop_allocation_proof_details` \n' +
@@ -93,7 +90,6 @@ const alterTables = {
     logger.info('usage:', 'node ./migrations/alter_table_for_chain_id_column.js defaultChainId');
     logger.info('* provided chain id will be used as a default value for all the existing rows.');
   }
-
 };
 
 module.exports = alterTables;
