@@ -25,14 +25,10 @@ DynamoDBInit.prototype = {
       instanceComposer = new InstanceComposer(configStrategy),
       storageProvider = instanceComposer.getStorageProvider(),
       openSTStorage = storageProvider.getInstance();
-    // run migrations
-    logger.info('* Running DynamoDB initial migrations for shard management.');
-    let shardMgmtObj = openSTStorage.dynamoDBService.shardManagement();
-    await shardMgmtObj.runShardMigration();
 
-    // createAndRegisterShard
-    logger.info('* Creating and registering shard for token balance model.');
-    await new openSTStorage.model.TokenBalance({}).createAndRegisterShard('tokenBalancesShard1');
+    // createShard
+    logger.info('* Creating shard for token balance model.');
+    await new openSTStorage.model.TokenBalance({}).createShard('tokenBalancesShard1');
   }
 };
 
