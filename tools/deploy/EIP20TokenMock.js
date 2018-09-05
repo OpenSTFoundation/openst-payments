@@ -28,9 +28,8 @@ require(rootPrefix + '/lib/providers/storage');
 /**
  * It is the main performer method of this deployment script
  *
- * @param {Array} arguments
+ * @param {Array} argv - arguments
  *
- * @return {}
  */
 
 async function performer(argv) {
@@ -124,12 +123,6 @@ async function performer(argv) {
   if (deployResult.isSuccess()) {
     const contractAddress = deployResult.data.transaction_receipt.contractAddress;
     logger.win('contractAddress: ' + contractAddress);
-
-    logger.debug('*** Allocating shard for Token balance');
-
-    await new openSTStorage.model.TokenBalance({
-      erc20_contract_address: contractAddress
-    }).allocate();
 
     if (fileForContractAddress !== '') {
       await deployHelper.writeContractAddressToFile(fileForContractAddress, contractAddress);
