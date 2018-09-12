@@ -28,7 +28,7 @@ DynamoDBInit.prototype = {
 
     // createShard
     logger.info('* Creating shard for token balance model.');
-    await new openSTStorage.model.TokenBalance({}).createShard('tokenBalancesShard1');
+    await new openSTStorage.model.TokenBalance({ shard_name: 'tokenBalancesShard1' }).createShard();
   }
 };
 
