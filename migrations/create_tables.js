@@ -8,13 +8,18 @@
 
 var rootPrefix = '..',
   InstanceComposer = require(rootPrefix + '/instance_composer'),
-  configStrategy = require(rootPrefix + '/mocha_test/scripts/config_strategy'),
   logger = require(rootPrefix + '/helpers/custom_console_logger');
 
 require(rootPrefix + '/config/core_constants');
 require(rootPrefix + '/app/models/queryDb');
 
-const instanceComposer = new InstanceComposer(configStrategy),
+if (!process.argv[2]) {
+  logger.error('Please pass the config strategy.');
+  process.exit(1);
+}
+
+const configStrategy = require(process.argv[2]),
+  instanceComposer = new InstanceComposer(configStrategy),
   coreConstants = instanceComposer.getCoreConstants(),
   QueryDBKlass = instanceComposer.getQueryDBKlass(),
   QueryDB = new QueryDBKlass(coreConstants.MYSQL_DATABASE);
