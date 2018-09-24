@@ -3,7 +3,7 @@
 /**
  * This is Script is used to add chainId column in tables "airdrop_allocation_proof_details" and "airdrops"<br><br>
  *
- * Usage : node ./migrations/alter_table_for_chain_id_column.js config_strategy_path
+ * Usage : node ./migrations/alter_table_for_chain_id_column.js config_strategy_path 197
  *
  * @module migrations/alter_table_for_chain_id_column.js
  */
@@ -20,6 +20,7 @@ if (!process.argv[2]) {
 }
 
 const configStrategy = require(process.argv[2]),
+  optionalDefaultChainId = process.argv(3),
   instanceComposer = new InstanceComposer(configStrategy),
   coreConstants = instanceComposer.getCoreConstants(),
   QueryDBKlass = instanceComposer.getQueryDBKlass(),
@@ -50,28 +51,44 @@ const alterTables = {
   },
 
   getQueries: function() {
-    let chainId = configStrategy.OST_UTILITY_CHAIN_ID;
 
-    const alterAirdropAllocationProofDetailsTable =
+    let alterAirdropAllocationProofDetailsTable =
       'ALTER TABLE `airdrop_allocation_proof_details` \n' +
-      '   ADD `chain_id` bigint(20) NOT NULL \n' +
-      '   DEFAULT ' +
-      chainId +
-      ' \n' +
-      '   AFTER `id` ;';
+      '   ADD `chain_id` bigint(20) NOT NULL \n'
+    ;
+
+    if (optionalDefaultChainId) {
+      alterAirdropAllocationProofDetailsTable = alterAirdropAllocationProofDetailsTable +
+        '   DEFAULT ' +
+        optionalDefaultChainId +
+        ' \n'
+    }
+
+    alterAirdropAllocationProofDetailsTable = alterAirdropAllocationProofDetailsTable +
+      '   AFTER `id` ;'
+    ;
 
     const alterAirdropAllocationProofUniqueIndex =
       'ALTER TABLE `airdrop_allocation_proof_details` \n' +
       '   DROP INDEX `UNIQUE_TRANSACTION_HASH` ,\n' +
       '   ADD UNIQUE KEY  `UNIQUE_TXN_HASH_CHAINID` (`transaction_hash` , `chain_id` ); ';
 
-    const alterAirdropTable =
+    let alterAirdropTable =
       'ALTER TABLE `airdrops` \n' +
-      '   ADD `chain_id` bigint(20) NOT NULL \n' +
-      '   DEFAULT ' +
-      chainId +
-      ' \n' +
-      '   AFTER `id` ; ';
+      '   ADD `chain_id` bigint(20) NOT NULL \n'
+    ;
+
+    if (optionalDefaultChainId) {
+      alterAirdropTable = alterAirdropTable +
+        '   DEFAULT ' +
+        optionalDefaultChainId +
+        ' \n'
+      ;
+    }
+
+    alterAirdropTable = alterAirdropTable +
+      '   AFTER `id` ; '
+    ;
 
     const alterAirdropUniqueIndex =
       'ALTER TABLE `airdrops` \n' +

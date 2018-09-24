@@ -2,7 +2,7 @@
 sh start_test_chain.sh
 sh deploy_all.sh
 . ./env_vars.sh
-node ./../../migrations/create_tables.js
+node ./../../migrations/create_tables.js ../$CONFIG_STRATEGY_FILE_NAME
 node ./../../migrations/alter_table_for_chain_id_column.js ../$CONFIG_STRATEGY_FILE_NAME
 ./../../node_modules/mocha/bin/mocha  ./../../mocha_test/services/pricer/*.js ./../../mocha_test/services/airdrop/*.js ./../../mocha_test/services/workers/_is_worker.js ./../../mocha_test/services/workers/_remove_worker.js ./../../mocha_test/services/workers/_set_worker.js ./../../mocha_test/services/workers/remove.js --exit
 
