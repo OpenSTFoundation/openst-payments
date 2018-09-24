@@ -20,7 +20,7 @@ if (!process.argv[2]) {
 }
 
 const configStrategy = require(process.argv[2]),
-  optionalDefaultChainId = process.argv(3),
+  optionalDefaultChainId = process.argv[3],
   instanceComposer = new InstanceComposer(configStrategy),
   coreConstants = instanceComposer.getCoreConstants(),
   QueryDBKlass = instanceComposer.getQueryDBKlass(),
