@@ -19,6 +19,15 @@ export OP_MYSQL_PASSWORD=''
 export OP_MYSQL_DATABASE='payment_development'
 export OP_MYSQL_CONNECTION_POOL_SIZE='5'
 
+# Enable RabbitMQ.
+export OST_RMQ_SUPPORT='1'
+export OST_RMQ_HOST='127.0.0.1'
+export OST_RMQ_PORT='5672'
+export OST_RMQ_USERNAME='guest'
+export OST_RMQ_PASSWORD='guest'
+export OST_RMQ_HEARTBEATS='30'
+export CONNECTION_WAIT_TIME=1
+
 export OST_CACHING_ENGINE='none'
 export OST_DEBUG_ENABLED=1
 export CONFIG_STRATEGY_FILE_NAME='/mocha_test/scripts/config_strategy.js'

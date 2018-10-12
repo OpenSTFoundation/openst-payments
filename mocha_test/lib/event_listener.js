@@ -1,12 +1,13 @@
 const openSTNotification = require('@openstfoundation/openst-notification');
 
 const notificationConfigStrategy = {
-  OST_RMQ_USERNAME: 'guest',
-  OST_RMQ_PASSWORD: 'guest',
-  OST_RMQ_HOST: '127.0.0.1',
-  OST_RMQ_PORT: '5672',
-  OST_RMQ_HEARTBEATS: '30',
-  OST_RMQ_SUPPORT: '1'
+  OST_RMQ_USERNAME: process.env.OST_RMQ_USERNAME,
+  OST_RMQ_PASSWORD: process.env.OST_RMQ_PASSWORD,
+  OST_RMQ_HOST: process.env.OST_RMQ_HOST,
+  OST_RMQ_PORT: process.env.OST_RMQ_PORT,
+  OST_RMQ_HEARTBEATS: process.env.OST_RMQ_HEARTBEATS,
+  OST_RMQ_SUPPORT: process.env.OST_RMQ_SUPPORT,
+  CONNECTION_WAIT_TIME: process.env.CONNECTION_WAIT_TIME
 };
 
 const openStNotification = openSTNotification.getInstance(notificationConfigStrategy);

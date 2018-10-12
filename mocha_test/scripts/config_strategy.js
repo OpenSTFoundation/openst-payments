@@ -45,7 +45,16 @@ const configStrategy = {
 
   // Cache variables.
   OST_CACHING_ENGINE: process.env.OST_CACHING_ENGINE,
-  OST_CACHE_CONSISTENT_BEHAVIOR: 1
+  OST_CACHE_CONSISTENT_BEHAVIOR: 1,
+
+  // RabbitMq variables
+  OST_RMQ_USERNAME: process.env.OST_RMQ_USERNAME,
+  OST_RMQ_PASSWORD: process.env.OST_RMQ_PASSWORD,
+  OST_RMQ_HOST: process.env.OST_RMQ_HOST,
+  OST_RMQ_PORT: process.env.OST_RMQ_PORT,
+  OST_RMQ_HEARTBEATS: process.env.OST_RMQ_HEARTBEATS,
+  OST_RMQ_SUPPORT: process.env.OST_RMQ_SUPPORT,
+  CONNECTION_WAIT_TIME: process.env.CONNECTION_WAIT_TIME
 };
 
 module.exports = configStrategy;
