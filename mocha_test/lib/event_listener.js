@@ -1,7 +1,19 @@
 const openSTNotification = require('@openstfoundation/openst-notification');
 
-var notificationRef = null;
-var allEvents = {};
+const notificationConfigStrategy = {
+  OST_RMQ_USERNAME: 'guest',
+  OST_RMQ_PASSWORD: 'guest',
+  OST_RMQ_HOST: '127.0.0.1',
+  OST_RMQ_PORT: '5672',
+  OST_RMQ_HEARTBEATS: '30',
+  OST_RMQ_SUPPORT: '1'
+};
+
+const openStNotification = openSTNotification.getInstance(notificationConfigStrategy),
+  openStNotificationInstance = openStNotification.getInstance();
+
+let allEvents = {},
+  notificationRef = null;
 
 module.exports.verifyIfEventFired = function(uuid, kind) {
   const key = `${uuid}_${kind}`;
@@ -32,6 +44,6 @@ module.exports.startObserving = function() {
         allEvents[key] = messageData.message;
       }
     );
-    notificationRef = openSTNotification;
+    notificationRef = openStNotificationInstance;
   }
 };
