@@ -9,8 +9,7 @@ const notificationConfigStrategy = {
   OST_RMQ_SUPPORT: '1'
 };
 
-const openStNotification = openSTNotification.getInstance(notificationConfigStrategy),
-  openStNotificationInstance = openStNotification.getInstance();
+const openStNotification = openSTNotification.getInstance(notificationConfigStrategy);
 
 let allEvents = {},
   notificationRef = null;
@@ -24,7 +23,7 @@ module.exports.verifyIfEventFired = function(uuid, kind) {
 
 module.exports.startObserving = function() {
   if (notificationRef === null) {
-    openSTNotification.subscribeEvent.local(
+    openStNotification.subscribeEvent.local(
       [
         'payments.pricer.setAcceptedMargin',
         'payments.pricer.setPriceOracle',
@@ -44,6 +43,6 @@ module.exports.startObserving = function() {
         allEvents[key] = messageData.message;
       }
     );
-    notificationRef = openStNotificationInstance;
+    notificationRef = openStNotification;
   }
 };
