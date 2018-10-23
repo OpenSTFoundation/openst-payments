@@ -208,6 +208,17 @@ BasicHelperKlass.prototype = {
   isValidChainId: function(chainId) {
     const chainIdBigNumberObject = new BigNumber(chainId);
     return chainIdBigNumberObject.isNaN() || !chainIdBigNumberObject.isInteger() ? false : true;
+  },
+
+  /**
+   *
+   * Is var null ?
+   *
+   * @return {Boolean}
+   *
+   */
+  isVarNull: function(variable) {
+    return typeof variable === 'undefined' || variable == null;
   }
 };
 

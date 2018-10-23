@@ -3,6 +3,10 @@
     "name": "gasPrice",
     "message": "Gas price is either undefined or invalid"
   },
+  "nonce_invalid": {
+    "name": "txNonce",
+    "message": "Nonce is invalid"
+  },
   "chain_id_invalid": {
     "name": "chainId",
     "message": "Chain id is either undefined or invalid"

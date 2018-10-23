@@ -39,6 +39,7 @@ require(rootPrefix + '/lib/contract_interact/airdrop');
  * @param {Bignumber} params.intended_price_point - price point at which the pay is intended (in wei)
  * @param {string} params.spender - User address
  * @param {string} params.gas_price - gas price
+ * @param {number} params.tx_nonce - Nonce using which this Pay method has to be executed
  * @param {object} params.options - for params like returnType, tag.
  *
  * @constructor
@@ -60,6 +61,7 @@ const PayKlass = function(params) {
     params.intended_price_point,
     params.spender,
     params.gas_price,
+    params.tx_nonce,
     params.options
   );
 
@@ -75,6 +77,7 @@ const PayKlass = function(params) {
   oThis.intendedPricePoint = params.intended_price_point;
   oThis.spender = params.spender;
   oThis.gasPrice = params.gas_price;
+  oThis.txNonce = params.tx_nonce;
   oThis.options = params.options;
   oThis.brandedTokenAddress = params.branded_token_address;
   oThis.airdropBudgetHolder = params.airdrop_budget_holder_address;
@@ -198,7 +201,8 @@ PayKlass.prototype = {
       oThis.gasPrice,
       oThis.options,
       oThis.brandedTokenAddress,
-      oThis.airdropBudgetHolder
+      oThis.airdropBudgetHolder,
+      oThis.txNonce
     );
   }
 };
