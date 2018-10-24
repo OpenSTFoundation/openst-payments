@@ -69,6 +69,7 @@ matrix:
 
 services:
   - mysql
+  - rabbitmq
 before_install:
   - mysql -e 'CREATE DATABASE payment_development;'
   - sudo apt-get update 

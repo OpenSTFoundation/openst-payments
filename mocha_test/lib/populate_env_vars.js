@@ -33,7 +33,7 @@ const addressTemplate =
 
 const populateEnvVars = {
   renderAndPopulate: function(type, vars) {
-    var renderData = '';
+    let renderData = '';
     try {
       if (type === 'address') {
         renderData = mustache.to_html(addressTemplate, vars);
@@ -41,8 +41,8 @@ const populateEnvVars = {
         console.error(' Invalid Template Type To render');
         process.exit(1);
       }
-      var existingSourceFileData = fs.readFileSync(Path.join(__dirname, '/' + envVarsSourceFile));
-      var dataToWrite = existingSourceFileData.toString() + '\n\n' + renderData;
+      let existingSourceFileData = fs.readFileSync(Path.join(__dirname, '/' + envVarsSourceFile));
+      let dataToWrite = existingSourceFileData.toString() + '\n\n' + renderData;
       //logger.debug("ENV Constants to Write");
       //logger.debug(dataToWrite);
       fs.writeFileSync(Path.join(__dirname, '/' + envVarsSourceFile), dataToWrite);

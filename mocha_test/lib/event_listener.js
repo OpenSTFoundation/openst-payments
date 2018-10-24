@@ -1,7 +1,19 @@
 const openSTNotification = require('@openstfoundation/openst-notification');
 
-var notificationRef = null;
-var allEvents = {};
+const notificationConfigStrategy = {
+  OST_RMQ_USERNAME: process.env.OST_RMQ_USERNAME,
+  OST_RMQ_PASSWORD: process.env.OST_RMQ_PASSWORD,
+  OST_RMQ_HOST: process.env.OST_RMQ_HOST,
+  OST_RMQ_PORT: process.env.OST_RMQ_PORT,
+  OST_RMQ_HEARTBEATS: process.env.OST_RMQ_HEARTBEATS,
+  OST_RMQ_SUPPORT: process.env.OST_RMQ_SUPPORT,
+  CONNECTION_WAIT_TIME: process.env.CONNECTION_WAIT_TIME
+};
+
+const openStNotification = openSTNotification.getInstance(notificationConfigStrategy);
+
+let allEvents = {},
+  notificationRef = null;
 
 module.exports.verifyIfEventFired = function(uuid, kind) {
   const key = `${uuid}_${kind}`;
@@ -12,7 +24,7 @@ module.exports.verifyIfEventFired = function(uuid, kind) {
 
 module.exports.startObserving = function() {
   if (notificationRef === null) {
-    openSTNotification.subscribeEvent.local(
+    openStNotification.subscribeEvent.local(
       [
         'payments.pricer.setAcceptedMargin',
         'payments.pricer.setPriceOracle',
@@ -32,6 +44,6 @@ module.exports.startObserving = function() {
         allEvents[key] = messageData.message;
       }
     );
-    notificationRef = openSTNotification;
+    notificationRef = openStNotification;
   }
 };
