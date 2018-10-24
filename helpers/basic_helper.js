@@ -219,6 +219,17 @@ BasicHelperKlass.prototype = {
    */
   isVarNull: function(variable) {
     return typeof variable === 'undefined' || variable == null;
+  },
+
+  /**
+   *
+   * Is var integer ?
+   *
+   * @return {Boolean}
+   *
+   */
+  isVarInteger: function(variable) {
+    return typeof variable === 'number' && variable % 1 === 0;
   }
 };
 
