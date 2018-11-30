@@ -25,10 +25,7 @@ matrix:
       env: GETH_VERSION=1.8.3
       node_js: "8"
     - if: branch =~ ^master
-      env: GETH_VERSION=1.8.8
-      node_js: "8"
-    - if: branch =~ ^master
-      env: GETH_VERSION=1.8.12
+      env: GETH_VERSION=1.8.17
       node_js: "8"
     - if: branch =~ ^develop
       env: GETH_VERSION=1.7.2
@@ -37,10 +34,7 @@ matrix:
       env: GETH_VERSION=1.8.3
       node_js: "8"
     - if: branch =~ ^develop
-      env: GETH_VERSION=1.8.8
-      node_js: "8"
-    - if: branch =~ ^develop
-      env: GETH_VERSION=1.8.12
+      env: GETH_VERSION=1.8.17
       node_js: "8"
     - if: branch =~ ^master
       env: GETH_VERSION=1.7.2
@@ -49,10 +43,7 @@ matrix:
       env: GETH_VERSION=1.8.3
       node_js: "9"
     - if: branch =~ ^master
-      env: GETH_VERSION=1.8.8
-      node_js: "9"
-    - if: branch =~ ^master
-      env: GETH_VERSION=1.8.12
+      env: GETH_VERSION=1.8.17
       node_js: "9"
     - if: branch =~ ^develop
       env: GETH_VERSION=1.7.2
@@ -61,10 +52,7 @@ matrix:
       env: GETH_VERSION=1.8.3
       node_js: "9"
     - if: branch =~ ^develop
-      env: GETH_VERSION=1.8.8
-      node_js: "9"
-    - if: branch =~ ^develop
-      env: GETH_VERSION=1.8.12
+      env: GETH_VERSION=1.8.17
       node_js: "9"
 
 services:
@@ -78,7 +66,6 @@ before_install:
   - sudo apt-get install software-properties-common
   - sudo add-apt-repository -y ppa:ethereum/ethereum
   - sudo apt-get update
-  - sudo apt-get --allow-unauthenticated install solc
   - sudo bash mocha_test/scripts/install_geth_$GETH_VERSION.sh
   - geth version
 install: 
@@ -87,7 +74,7 @@ before_script:
   - mkdir -p ~/.ethash
   - geth makedag 0 ~/.ethash
   - nohup sh tools/runGanacheCli.sh </dev/null >/dev/null 2>&1 &
-  - bash contracts/compile.sh
+  - truffle compile
   - mkdir -p dynamodb
   - wget https://s3.ap-south-1.amazonaws.com/dynamodb-local-mumbai/dynamodb_local_latest.zip -O ./dynamodb/dynamodb_local_latest.zip
   - unzip ./dynamodb/dynamodb_local_latest.zip
